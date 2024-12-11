@@ -1,0 +1,882 @@
+.hero-section {
+    display: flex;
+    align-items: center;
+    /* background-color: white;        padding: 20px; */
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.hero-left {
+    flex: 1;
+    padding: 10px;
+    text-align: left;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero-left h1,
+.hero-left h4 {
+    margin: 0;
+    color: #333;
+    animation: slideIn 2s ease-out;
+}
+
+.hero-left h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #bd0f0f;
+}
+
+.hero-left h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: orange;
+}
+
+.persistent-gif {
+    display: block;
+    margin: 10px auto 0;
+    width: 250px;
+    height: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.hero-right {
+    flex: 2;
+    padding: 20px;
+    text-align: justify;
+    /* background-color: #f9fafb; */
+    font-weight: normal;
+}
+
+.hero-right strong {
+    font-weight: normal;
+}
+
+.hero-right p {
+    opacity: 0;
+}
+
+.mission-vision-section {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.box {
+    flex: 1;
+    padding: 20px;
+    background-color: #fdf2f2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.box h2 {
+    margin-top: 0;
+    color: #bd0f0f;
+    align: center;
+    margin-bottom: 20px;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.box p {
+    color: #555;
+    text-align: justify;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.story-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+    background-color: #fdfdea;
+}
+
+.story-title {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.underline-curve {
+    width: 80px;
+    height: 4px;
+    background-color: #bd0f0f;
+    margin: 5px auto 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.underline-curve::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -10px;
+    width: 100px;
+    height: 10px;
+    background-color: #bd0f0f;
+    border-radius: 20px;
+    opacity: 0.5;
+}
+
+.story-content {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    max-width: 1200px;
+}
+
+.story-text {
+    max-width: 1200px;
+    column-width: 200px;
+    column-count: 2;
+    column-gap: 40px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+}
+
+.team-section img {
+    width: 100%;
+    height: auto;
+}
+
+.values-section {
+    text-align: center;
+    padding: 40px;
+    max-width: 1400px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.values-section h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.values-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.values-left {
+    /* background-color: #2E1A4B; */
+    padding: 20px;
+    color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.values-item {
+    display: flex;
+    align-items: center;
+    align-items: flex-start;
+    text-align: justify;
+    margin-bottom: 15px;
+}
+
+.values-item img {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+
+.values-item h3 {
+    color: #c27803;
+    font-size: 1rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.values-item p {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+    text-align: justify;
+    font-size: 0.8rem;
+}
+
+.values-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    display: flex;
+    align-items: stretch;
+}
+
+.values-right img {
+    width: 100%;
+    height: auto;
+}
+
+.promise-section {
+    padding: 40px;
+    text-align: center;
+}
+
+.promise-content {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.promise-section h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.promise-content img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.promise-text {
+    background-color: #ff6700;
+    color: white;
+    padding: 20px;
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.promise-item {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.promise-item i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.empowering-section {
+    text-align: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.empowering-section h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+.feature-item {
+    text-align: center;
+}
+
+.feature-item p {
+    color: black;
+}
+
+.feature-item i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+    .hero-section h1 {
+        font-size: 36px;
+    }
+
+    .hero-section p {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 80px 10px;
+    }
+
+    .hero-section h1 {
+        font-size: 28px;
+    }
+
+    .hero-section p {
+        font-size: 18px;
+    }
+}
+
+/* General Styling */
+.values-section {
+    padding: 50px;
+    color: #fff;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.values-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Left Section */
+.values-left {
+    flex: 0.6;
+}
+
+.values-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    background-color: #2b2b2b;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.values-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 10px rgba(240, 184, 10, 0.2);
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.value-description h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #ffbb00;
+    /* Accent color */
+}
+
+.value-description p {
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+/* Right Section */
+.values-right {
+    flex: 0.4;
+}
+
+.right-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .values-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .values-left {
+        width: 100%;
+    }
+
+    .values-right {
+        width: 100%;
+        margin-top: 30px;
+    }
+}
+
+.tabs {
+    /* max-width: 1000px; */
+    margin: 40px auto;
+    /* background: #fff; */
+    /* border-radius: 12px; */
+    overflow: hidden;
+}
+
+/* Horizontal Tab Titles with Divs */
+.tab-titles {
+    display: flex;
+    /* background: linear-gradient(135deg, #f63440, #FF577F); */
+    /* padding: 10px 0; */
+    /* border-bottom: 2px solid #eaeaea; */
+}
+
+.tab-title {
+    flex: 1;
+    text-align: center;
+    padding: 15px 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    /* border-radius: 8px; */
+}
+
+.tab-title.active {
+    border-bottom: 2px solid #ff577f;
+    color: #ff577f;
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tab-title:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #2b2b2b;
+    transform: translateY(-2px);
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 40px;
+    box-shadow: 5px 10px 36px rgba(200, 200, 200, 0.4);
+    /* background-color: #fff; */
+}
+
+.tab-pane {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.tab-pane.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tab-pane h2 {
+    font-size: 28px;
+    color: #3a8d2d;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.tab-pane p {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    text-align: justify;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tab-titles {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .tab-title {
+        margin: 5px;
+    }
+}
+
+/* styles.css */
+
+/* Fade-left animation for promise-items */
+@keyframes fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Fade-right animation for image */
+@keyframes fade-right {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Apply initial state (hidden) */
+.promise-item,
+.promise-img {
+    opacity: 0;
+    transform: translateX(0);
+}
+
+/* Add 'in-view' class to trigger animations */
+.promise-item.in-view {
+    animation: fade-left 1s ease-out forwards;
+}
+
+.promise-img.in-view {
+    animation: fade-right 1s ease-out forwards;
+}
+
+/* Optional: Delay for promise items */
+.promise-item:nth-child(1).in-view {
+    animation-delay: 0.2s;
+}
+
+.promise-item:nth-child(2).in-view {
+    animation-delay: 0.4s;
+}
+
+.promise-item:nth-child(3).in-view {
+    animation-delay: 0.6s;
+}
+
+.promise-item:nth-child(4).in-view {
+    animation-delay: 0.8s;
+}
+
+.promise-item:nth-child(5).in-view {
+    animation-delay: 1s;
+}
+
+/* Optional: Add animation delay to the image */
+.promise-img.in-view {
+    animation-delay: 0.2s;
+}
+
+/* General section styling */
+.promise-section {
+    background-color: #1a1a1a;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.title-section {
+    margin-bottom: 30px;
+}
+
+/* Flexbox styling for promise content */
+.promise-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Styling for images in the promise section */
+.promise-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Styling for the promise items */
+.promise-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+    text-align: left;
+}
+
+.promise-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #333;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.icon {
+    font-size: 2rem;
+    color: #63ab45;
+}
+
+.promise-item strong {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.promise-item p {
+    color: #ddd;
+    margin: 5px 0;
+}
+
+/* Animation styles */
+.icon-box-animation {
+    opacity: 0;
+    transform: scale(0.4);
+    /* Starts slightly zoomed out */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.icon-box-animation.visible {
+    opacity: 1;
+    transform: scale(1);
+    /* Zooms in to normal size */
+}
+
+/* Keyframes for the left and right animations */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Apply the animations */
+.animate-left {
+    animation: slideInLeft 2s ease-out forwards;
+}
+
+.animate-right {
+    animation: slideInRight 2s ease-out forwards;
+}
+
+/* Optional: Set initial opacity for smooth transition */
+.hero-right p {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* General Hero Section Styling */
+.hero-section {
+    font-family: "Poppins", sans-serif;
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Keyframes for the left and right animations */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Apply the animations */
+.animate-left {
+    animation: slideInLeft 2s ease-out forwards;
+}
+
+.animate-right {
+    animation: slideInRight 2s ease-out forwards;
+}
+
+/* Optional: Set initial opacity for smooth transition */
+.hero-right p {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* Title Section Styling */
+.title-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Right Section Styling */
+.hero-right {
+    flex: 1;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+/* Text Styles */
+.hero-right h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.hero-right p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-top: 10px;
+    color: white;
+}
+
+#more-text {
+    display: none;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-top: 15px;
+    color: white;
+}
+
+.see-more {
+    color: #ff577f;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 15px;
+    display: block;
+}
+
+/* Additional styles can be added here as needed */
+/* Keyframes for the left and right animations */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Apply the animations */
+.animate-left {
+    animation: slideInLeft 2s ease-out forwards;
+}
+
+.animate-right {
+    animation: slideInRight 2s ease-out forwards;
+}
+
+/* Optional: Set initial opacity for smooth transition */
+.hero-right p {
+    opacity: 0;
+    transition: opacity 1s ease;
+}

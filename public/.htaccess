@@ -1,0 +1,23 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect to HTTPS (optional, uncomment if you need HTTPS redirection)
+    # RewriteCond %{HTTPS} !=on
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Handle requests to the public directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Security headers (optional, uncomment if needed)
+# <IfModule mod_headers.c>
+#     Header always set X-Frame-Options "SAMEORIGIN"
+#     Header always set X-XSS-Protection "1; mode=block"
+#     Header always set X-Content-Type-Options "nosniff"
+# </IfModule>
