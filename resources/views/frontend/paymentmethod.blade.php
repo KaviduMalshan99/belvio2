@@ -89,7 +89,7 @@
                                     <input type="text" class="form-control square-input" id="cvv" placeholder="123" required>
                                 </div>
                             </div>
-                            <button type="button" class="btn" style="background-color: rgb(238, 82, 10); color: white; width: 48%; margin-top: 2rem;">Pay Now</button>
+                            <a  href="{{route('transaction',$order->order_code)}}" type="button" class="btn" style="background-color: rgb(238, 82, 10); color: white; width: 48%; margin-top: 2rem;">Pay Now</a>
                         </div>
                     </div>
                 </div>

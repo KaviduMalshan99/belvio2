@@ -81,6 +81,8 @@ Route::get('/payment/{order_code}', [PaymentController::class, 'showPaymentPage'
 Route::post('/confirm-cod-order/{order_code}', [PaymentController::class, 'confirmCODOrder'])->name('confirm.cod.order');
 Route::get('/order/order_received/{order_code}', [PaymentController::class, 'getOrderDetails'])->name('order.thankyou');
 
+Route::get('/transaction/{order_code}', [PaymentController::class, 'createTransaction'])->name('transaction');
+Route::get('/payment_received', [PaymentController::class, 'getOrderDetails2'])->name('order.thankyou2');
 
 Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 Route::delete('/profile/reviews/{review}', [ReviewController::class, 'customerDestroy'])->name('customer.reviews.destroy');
