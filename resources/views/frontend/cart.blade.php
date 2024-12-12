@@ -87,7 +87,7 @@
     <div class="container">
         <div class="row gy-4">
 
-            <div class="col-xl-9 col-lg-8">
+            <div class="col-xl-8 col-lg-7">
                 <!-- Display the cart items table -->
                 <div class="cart-table border border-gray-100 rounded-8 px-40 py-40">
                     <div class="overflow-x-auto scroll-sm scroll-sm-horizontal">
@@ -199,49 +199,79 @@
                 </div>
             </div>
 
-            <div class="col-xl-3 col-lg-4">
-                <div class="cart-sidebar border border-gray rounded-8 p-24">
-                    <!-- Cart Totals Header -->
-                    <h6 class="cart-totals-header">Cart Totals</h6>
+            <div class="cart-sidebar border border-gray rounded-8 p-3">
+                <!-- Cart Totals Header -->
+                <h6 class="cart-totals-header mb-0">Cart Totals</h6>
 
-                    <!-- Cart Summary -->
-                    <div class="bg-color-three rounded-8 ">
-                        <div class="d-flex justify-content-between mb-16">
-                            <span class="cart-summary-label">Subtotal</span>
-                            <span class="cart-summary-value">Rs. {{number_format((($total)+300),2)}}</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="cart-summary-label font-heading-two">Delivery Fee</span>
-                            <span class="cart-summary-value">Rs 300.00</span>
-                        </div>
+                <!-- Cart Summary -->
+                <div class="bg-color-three rounded-8">
+                    <div class="d-flex justify-content-between">
+                        <span class="cart-summary-label">Subtotal</span>
+                        <span class="cart-summary-value">Rs. {{ number_format($total, 2) }}</span>
                     </div>
 
-                    <!-- Total Amount -->
-                    <div class="bg-color-three">
-                        <div class="bg-color-three">
-                            <div class="d-flex justify-content-between">
-                                <span style="color: #333; font-size: 1.1rem; font-weight: 600;">Total</span>
-                                <span style="color: #333; font-size: 1.1rem; font-weight: 600;">Rs. {{number_format((($total)+300),2)}}</span>
-                            </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="cart-summary-label font-heading-two">Delivery Fee</span>
+                        <span class="cart-summary-value">
+                            @if ($cartItems->count() > 0)
+                                Rs 350.00
+                            @else
+                                Rs 0.00
+                            @endif
+                        </span>
+                    </div>
+
+                  <!-- Promo Discount and Apply Promo Code Form -->
+                    @if (session('promo'))
+                        <!-- Promo Discount applied -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <span class="cart-summary-label">Promo Discount ({{ session('promo.discount_percentage') }}%)</span>
+                            <span class="cart-summary-value">- Rs. {{ number_format(session('promo.discount_amount'), 2) }}</span>
                         </div>
 
+                        <!-- Remove Promo Code Button -->
+                        <form action="{{ route('remove.promo') }}" method="POST" style="text-align: left; margin-top: -10px;">
+                            @csrf
+                            <button type="submit" class="btn btn-link" style="color: red; text-decoration: none; padding: 0; font-size: 12px;">
+                                Remove Promo Code
+                            </button>
+                        </form>
+                    @endif
 
 
-                        <!-- Proceed to Checkout Button -->
-                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-                        <button type="button" style="border: none;  padding: 0;">
-                            <a href="{{ route('checkout') }}" 
+                    <!-- Promo Code Form -->
+                    <form id="promo-form" class="d-flex justify-content-between mt-4" action="{{ route('apply.promo') }}" method="POST">
+                        @csrf
+                        <input type="text" class="form-control" name="promo_code" placeholder="Enter Promo Code" style="height:40px; font-size:12px" required>
+                        <button type="submit" id="apply-promo" style="background-color:black;padding: 0 20px; height:40px; font-size:12px">Apply</button>
+                    </form>
+
+
+                   
+                    <div class="d-flex justify-content-between mt-3">
+                        <span class="cart-summary-label" style="color: #333; font-size: 1.1rem; font-weight: 600;">Total</span>
+                        <span class="cart-summary-value" style="color: #333; font-size: 1.1rem; font-weight: 600;">
+                            Rs. {{ number_format(session('promo.total', $total + 350), 2) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Proceed to Checkout -->
+                <div class="bg-color-three">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <button type="button" style="border: none; padding: 0;">
+                            <a href="{{ route('checkout', ['promo_code' => session('promo.name')]) }}" 
                             class="btn rounded-8 text-white" 
                             style="font-size:12px; font-weight:bold; padding: 10px 20px; text-decoration: none;">
                             Proceed to Checkout
                             </a>
                         </button>
                     </div>
-
-                    </div>
                 </div>
-
             </div>
+
+
+
         </div>
 </section>
 
@@ -382,5 +412,39 @@
         updateCartTotal();
     });
 </script>
+
+<script>
+document.getElementById('apply-promo').addEventListener('click', function () {
+    const promoCode = document.querySelector('input[name="promo_code"]').value;
+    const csrfToken = document.querySelector('input[name="_token"]').value;
+
+    if (!promoCode) {
+        alert('Please enter a promo code.');
+        return;
+    }
+
+    // Submit the form using fetch (via the form submission itself)
+    fetch("{{ route('apply.promo') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({ promo_code: promoCode })
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.reload(); // Reload to reflect any changes in promo or total
+        } else {
+            alert('Failed to apply promo code.');
+        }
+    })
+    .catch(error => {
+        console.error('Error applying promo code:', error);
+        alert('An error occurred while applying the promo code. Please try again.');
+    });
+});
+</script>
+
 
 @endsection

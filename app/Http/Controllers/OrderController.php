@@ -85,9 +85,7 @@ class OrderController extends Controller
         }
     
         try {
-    
             $user = Auth::user();
-    
             $cartItems = \App\Models\CartItem::where('user_id', $user->id)->get();
     
             if ($cartItems->isEmpty()) {
@@ -97,11 +95,17 @@ class OrderController extends Controller
             $orderCode = 'ORD-' . strtoupper(Str::random(8));
     
             $subtotal = $cartItems->sum('subtotal');
-            $deliveryFee = 300.00;
-            $totalCost = $subtotal + $deliveryFee;
+            $deliveryFee = 350.00;
+    
+            // Apply promo code if available
+            $promoCode = session('promo.name'); 
+            $promoDiscount = session('promo.discount_amount', 0); 
+    
+            $totalCost = $subtotal + $deliveryFee - $promoDiscount; // Apply the discount to the total cost
     
             $customerName = $request->input('first_name') . ' ' . $request->input('last_name');
     
+            // Prepare order data
             $orderData = [
                 'order_code' => $orderCode,
                 'user_id' => $user->id,
@@ -114,50 +118,53 @@ class OrderController extends Controller
                 'postal_code' => $request->input('postal_code'),
                 'date' => Carbon::now()->format('Y-m-d'),
                 'total_cost' => $totalCost,
+                'promo_code' => $promoCode,  // Store promo code
+                'promo_discount' => $promoDiscount,  // Store promo discount
                 'status' => 'Pending',
                 'payment_method' => $request->input('payment_method', null),
                 'payment_status' => 'Pending',
             ];
     
-    
+            // Create the order
             $order = CustomerOrder::create($orderData);
     
+            // Update stock quantities for cart items and variations
             foreach ($cartItems as $cartItem) {
                 if (!isset($cartItem->product_id, $cartItem->quantity, $cartItem->price)) {
                     continue;
                 }
-            
+    
                 $product = \App\Models\Product::find($cartItem->product_id);
                 if ($product) {
                     $product->quantity = max(0, $product->quantity - $cartItem->quantity);
                     $product->save();
                 }
-            
+    
                 // Update the size variation quantity
                 $sizeVariation = \App\Models\Variations::where('product_id', $product->product_id)
                     ->where('type', 'size')
                     ->where('value', $cartItem->size)
                     ->first();
-            
+    
                 if ($sizeVariation) {
                     $sizeVariation->quantity = max(0, $sizeVariation->quantity - $cartItem->quantity);
                     $sizeVariation->save();
                 }
-            
+    
                 // Add '#' to color if it's not there
                 $colorWithHash = (strpos($cartItem->color, '#') === 0) ? $cartItem->color : '#' . $cartItem->color;
-            
+    
                 // Update the color variation quantity
                 $colorVariation = \App\Models\Variations::where('product_id', $product->product_id)
                     ->where('type', 'color')
                     ->where('hex_value', $colorWithHash)
                     ->first();
-            
+    
                 if ($colorVariation) {
                     $colorVariation->quantity = max(0, $colorVariation->quantity - $cartItem->quantity);
                     $colorVariation->save();
                 }
-            
+    
                 // Add to order items
                 CustomerOrderItems::create([
                     'order_code' => $orderCode,
@@ -169,15 +176,18 @@ class OrderController extends Controller
                     'color' => $cartItem->color ?? null,
                 ]);
             }
-        
-            
+    
+            // Clear the user's cart
             \App\Models\CartItem::where('user_id', $user->id)->delete();
     
+            // Redirect to the payment page with the order code
             return redirect()->route('paymentpage', ['order_code' => $orderCode]);
+    
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while placing the order. Please try again.');
         }
     }
+    
     
 
 
@@ -197,7 +207,7 @@ class OrderController extends Controller
     {
         $userId = Auth::id();
         $orderCode = 'ORD-' . strtoupper(Str::random(8));
-        $deliveryFee = 300;
+        $deliveryFee = 350;
         $subtotal = 0;
         
         // Calculate subtotal based on the products in the request

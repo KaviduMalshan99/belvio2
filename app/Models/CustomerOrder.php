@@ -24,6 +24,8 @@ class CustomerOrder extends Model
         'postal_code',
         'date',
         'total_cost',
+        'promo_code',
+        'promo_discount',
         'status',
         'payment_method',
         'payment_status',
