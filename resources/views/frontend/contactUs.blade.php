@@ -97,27 +97,22 @@
                 <form novalidate="" class="contact-form" id="contactform" method="post" action="{{ route('send_mail') }}">
                     @csrf
                     <div class="form-text-wrap clearfix">
-                     <div class="contact-name">
-    <label></label>
-    <input type="text" placeholder="Name" aria-required="true" size="30" 
-           value="{{ Auth::check() ? Auth::user()->name : '' }}" 
-           name="author" id="author">
-</div>
-<div class="contact-email">
-    <label></label>
-    <input type="email" size="30" placeholder="Email" 
-           name="email" id="email" 
-           value="{{ Auth::check() ? Auth::user()->email : '' }}">
-</div>
-
+                        <div class="contact-name">
+                            <label></label>
+                            <input type="text" placeholder="Name" aria-required="true" size="30" style="color: #333;"  name="author" id="author">
+                        </div>
+                        <div class="contact-email">
+                            <label></label>
+                            <input type="email" size="30" placeholder="Email" name="email" style="color: #333;" id="email">
+                        </div>
                         <div class="contact-subject">
                             <label></label>
-                            <input type="text" placeholder="Subject" aria-required="true" size="30" value="" name="subject" id="subject">
+                            <input type="text" placeholder="Subject" aria-required="true" size="30" style="color: #333;" name="subject" id="subject">
                         </div>
                     </div>
                     <div class="contact-message clearfix">
                         <label></label>
-                        <input type="text" class="" tabindex="4" placeholder="Message" name="message" required></input>
+                        <input type="text" placeholder="Message" aria-required="true" size="30" style="color: #333;" name="message" required></input>
                     </div>
                     <div class="form-submit">
                         <button class="contact-submit" type="submit">SEND</button>

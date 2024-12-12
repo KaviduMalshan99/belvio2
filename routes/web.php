@@ -23,12 +23,11 @@ use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\customerProfileController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PromocodeController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Log;
 
-
+use App\Http\Controllers\Auth\OtpLoginController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Mail;
@@ -41,9 +40,27 @@ Route::get('/store',[HomeController::class, 'show_store'])->name('show_store');
 Route::get('/contact-us',[HomeController::class, 'contact_us'])->name('contactus');
 Route::post('/contact-us',[ContactFormController::class, 'sendContactForm'])->name('send_mail');
 Route::get('/shop',[ShopController::class, 'shop'])->name('shop');
+Route::get('/shop/sub-category/{category_id}/{sub_category_id}',[ShopController::class, 'sub_catogory_view'])->name('shop.sub_category');
 
 Route::get('/search-suggestions', [HomeController::class, 'searchSuggestions'])->name('search.suggestions');
 Route::get('/search-results', [HomeController::class, 'searchResults'])->name('search.results');
+
+
+Route::post('/payment/initiate', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+
+
+//OTP Routes
+// Route::get('/verify-otp', [OtpLoginController::class, 'showOtpLoginForm'])->name('otp.login');
+// Route::post('/send-otp', [OtpLoginController::class, 'sendOtp'])->name('send-otp');
+Route::get('/send-otp', [OtpLoginController::class, 'showOtpLoginForm'])->name('show_otp_form');
+Route::post('/send-otp', [OtpLoginController::class, 'sendOtp'])->name('send-otp');
+Route::post('/verify-otp', [OtpLoginController::class, 'verifyOtp'])->name('verify_otp');
+Route::get('/verify-finish', [OtpLoginController::class, 'finish'])->name('otp-msg');
+
+
+Route::get('/forget-password', [OtpLoginController::class, 'showRestpasswordForm'])->name('frogeten_psw');
 
 
 //profile
@@ -67,10 +84,6 @@ Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add')
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
 Route::put('/cart/update/{cartItem}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
-
-Route::post('/apply-promo', [CartController::class, 'applyPromo'])->name('apply.promo');
-Route::post('/remove-promo', [CartController::class, 'removePromo'])->name('remove.promo');
-
 
 Route::get('/buy-now-checkout/{product_id}', [CartController::class, 'buyNowCheckout'])->name('buyNow.checkout');
 Route::post('/buy_now_place-order', [OrderController::class, 'buynow_placeOrder'])->name('buynow_placeOrder');
@@ -239,11 +252,6 @@ Route::post('/admin/users', [UserController::class, 'store'])->name('system_user
 Route::get('/admin/edit_users/{id}', [UserController::class, 'edit'])->name('edit_users');
 Route::post('/admin/edit_users/{id}', [UserController::class, 'update'])->name('update_users');
 Route::delete('/admin/edit_users/{id}', [UserController::class, 'destroy'])->name('delete_users');
-
-Route::get('/admin/promo_codes', [PromocodeController::class, 'show'])->name('promo_codes');
-Route::post('/admin/promo_codes', [PromocodeController::class, 'store'])->name('promo_codes.store');
-Route::delete('/admin/promo_codes/{id}', [PromocodeController::class, 'destroy'])->name('promo_codes.destroy');
-Route::put('/admin/promo_codes/{id}', [PromocodeController::class, 'update'])->name('promocode.update');
 
 
 // admin_reports

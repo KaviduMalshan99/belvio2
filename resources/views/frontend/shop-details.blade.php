@@ -119,9 +119,9 @@ a.disabled {
     					</div><!-- /.page-title-heading -->
     					<div class="breadcrumbs">
     						<ul>
-    					    	<li><a href="{{route('home')}}">Home</a></li>
-    							<li><a href="{{route('shop')}}">Shop</a></li>
-                                <li><a href="#">Products</a></li>
+    							<li><a href="index.html">Home</a></li>
+    							<li><a href="shop-3col.html">Shop</a></li>
+                                <li><a href="shop-detail-video.html">Products</a></li> 
     						</ul>                                               
     					</div><!-- /.breadcrumbs -->
     				</div><!-- /.col-md-12 -->
@@ -270,19 +270,17 @@ a.disabled {
                             <div class="product-tags">
                                 <span>Tags: </span><a href="#">{{ $product->tags }}</a>
                             </div>
-                          
-                          <div class="product-quantity margin-top-35" style="display: flex; flex-wrap: wrap; align-items: center; gap: 15px;">
+                            <div class="product-quantity margin-top-35" style="display: flex; align-items: center; gap: 15px;">
                                 <!-- Quantity Section -->
-                                <div class="quantity" style="flex: 1;">
+                                <div class="quantity">
                                     <input type="number" min="1" max="{{ $product->quantity }}" value="1" 
-                                    name="quantity-number" class="quantity-number" id="quantity-input" 
-                                    style="width: 100%; max-width: 120px; height: 40px; text-align: center; border: 1px solid #ccc; border-radius: 4px;" />
+                                    name="quantity-number" class="quantity-number" id="quantity-input" />
                                 </div>
 
-                                <!-- Add to Cart, Buy Now, and Wishlist Buttons -->
-                                <div class="add-to-cart" style="display: flex; flex-wrap: wrap; align-items: center; gap: 15px; flex: 1;">
+                              <!-- Add to Cart and Buy Now Buttons -->
+                                <div class="add-to-cart" style="display: flex; align-items: center; gap: 10px;">
                                     @auth
-                                    <form action="{{ route('cart.add') }}" method="POST" id="addToCartForm" style="flex: 1 1 150px;">
+                                    <form action="{{ route('cart.add') }}" method="POST" id="addToCartForm" style="width: 50%;">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <input type="hidden" name="size" id="selectedSize">
@@ -291,31 +289,34 @@ a.disabled {
                                         <input type="hidden" name="price" id="hiddenPrice" value="{{ $product->normal_price }}">
                                         <button type="submit" 
                                                 class="btn text-capitalize" 
-                                                style="font-weight: bold; height: 50px; width: 100%; max-width: 150px; font-size: 16px; border-radius: 4px; color: #fff; background-color: #39FF14; border: none; text-align: center;">
+                                                style="font-weight:bold;height: 50px; width: 150px; font-size: 16px; border-radius: 4px; color: #fff; border: none; text-align: center;"
+                                                id="addToCartBtn">
                                             Add to Cart
                                         </button>
                                     </form>
 
                                     <a href="{{ route('buyNow.checkout', ['product_id' => $product->id]) }}" 
                                     id="buyNowBtn" 
-                                    style="height: 50px; width: 100%; max-width: 150px; display: flex; align-items: center; justify-content: center; text-transform: capitalize; font-size: 16px; border-radius: 4px; color: #fff; text-decoration: none; background-color: #39FF14; flex: 1 1 150px;">
+                                    style="height: 50px; width: 150px; display: flex; align-items: center; justify-content: center; text-transform: capitalize; font-size: 16px; border-radius: 4px; color: #fff; text-decoration: none;">
                                         Buy Now
                                     </a>
+                                    @else
+                                    <p style="color: red; text-align: center;">Please <a href="{{route('cus-login')}}">log in</a> to add items to the cart.</p>
+                                    @endauth
+                                </div>
 
-                                    <!-- Heart Icon -->
-                                    <div class="box-like" style="flex: 0 0 auto;">
+
+                                <!-- Heart Icon -->
+                                    <div class="box-like">
                                         <a href="javascript:void(0);" class="like" 
                                         id="wishlist-icon-{{ $product->product_id }}" 
                                         onclick="toggleWishlist(this, '{{ $product->product_id }}')">
                                             <i class="fa fa-heart-o"></i>
                                         </a>
                                     </div>
-                                    @else
-                                    <p style="color: red; text-align: center; flex: 1 1 100%;">Please <a href="{{route('cus-login')}}">log in</a> to add items to the cart.</p>
-                                    @endauth
-                                </div>
+
                             </div>
-                          
+
                         </div><!-- /.product-detail -->
                     </div>
                 </div><!-- /.row -->
@@ -395,90 +396,47 @@ a.disabled {
         	</div>
         </section><!-- /.shop-detail-content -->
 
-   <section class="flat-row shop-related">
-
+        <section class="flat-row shop-related">
     <div class="container">
-
         <div class="row">
-
             <div class="col-md-12">
-
                 <div class="title-section margin-bottom-55">
-
                     <h2 class="title">Related Products</h2>
-
                 </div>
 
-
-
                 <div class="product-content product-fourcolumn clearfix">
-
-                    <ul class="product style2 row" style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0;">
-
+                    <ul class="product style2" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
                         @foreach($relatedProducts as $relatedProduct)
-
-                            <li class="product-item col-lg-3 col-md-4 col-sm-6 col-12" 
-
-                                style="margin-bottom: 30px; display: flex; flex-direction: column; align-items: center;">
-
+                            <li class="product-item" style="margin-bottom:70px; width: calc(24% - 5px);">
                                 <div class="product-thumb clearfix">
-
                                     <a href="{{ route('shop_details', $relatedProduct->id) }}">
-
-                                        <img src="{{ asset('storage/' . $relatedProduct->images->first()->image_path) }}" 
-
-                                             alt="image" 
-
-                                             style="height: 300px; width: 100%; object-fit: cover; border-radius: 8px;">
-
+                                        <img src="{{ asset('storage/' . $relatedProduct->images->first()->image_path) }}" alt="image" style="height: 300px; width: auto; object-fit: cover;">
                                     </a>
-
                                 </div>
-
-                                <div class="product-info clearfix text-center" style="margin-top: 10px;">
-
-                                    <span class="product-title d-block">{{ $relatedProduct->product_name }}</span>
-
+                                <div class="product-info clearfix">
+                                    <span class="product-title">{{ $relatedProduct->product_name }}</span>
                                     <div class="price">
-
                                         <ins>
-
-                                            <span class="amount">Rs {{ $relatedProduct->normal_price }}</span>
-
+                                            <span class="amount text-black">Rs {{ $relatedProduct->normal_price }}</span>
                                         </ins>
-
                                     </div>
-
                                 </div>
-
+                               
                                 <a href="javascript:void(0);" 
-
-                                   class="heart-icon like mt-2" 
-
-                                   id="wishlist-icon-{{ $product->product_id }}" 
-
-                                   data-product-id="{{ $product->product_id }}" 
-
-                                   onclick="toggleWishlist(this, '{{ $product->product_id }}')">
-
-                                    <i class="fa fa-heart-o"></i>
-
-                                </a>
-
+                                    class="heart-icon like" 
+                                    id="wishlist-icon-{{ $product->product_id }}" 
+                                    data-product-id="{{ $product->product_id }}" 
+                                    onclick="toggleWishlist(this, '{{ $product->product_id }}')">
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
                             </li>
-
-                        @endforeach
-
+                       
+                    @endforeach
                     </ul><!-- /.product -->
-
                 </div><!-- /.product-content -->
-
             </div>
-
         </div><!-- /.row -->
-
     </div>
-
 </section>
 
 
