@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\CartItem;
+use App\Models\PromoCode;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +38,6 @@ class CartController extends Controller
     
         if ($cartItems->isEmpty()) {
             return view('frontend.cart')
-                ->with('message', 'Your cart is empty. Start shopping!')
                 ->with('cartItems', collect([])); 
         }
     
@@ -59,6 +59,66 @@ class CartController extends Controller
     }
     
     
+    public function applyPromo(Request $request)
+{
+    $request->validate([
+        'promo_code' => 'required|string',
+    ]);
+
+    // Check if the promo code is valid
+    $promoCode = PromoCode::where('name', $request->promo_code)
+        ->where('start_date', '<=', now())
+        ->where('end_date', '>=', now())
+        ->first();
+
+    if (!$promoCode) {
+        session()->flash('error', 'Invalid or expired promo code.');
+        return redirect()->back(); // Redirect back with error
+    }
+
+    // Check if the cart is empty
+    $userId = auth()->user()->id;
+    $cartItems = CartItem::where('user_id', $userId)->get();
+
+    if ($cartItems->isEmpty()) {
+        session()->flash('error', 'Your cart is empty.');
+        return redirect()->back(); // Redirect back with error
+    }
+
+    // Calculate totals
+    $subtotal = $cartItems->sum(function ($item) {
+        return $item->price * $item->quantity;
+    });
+
+    $discountPercentage = $promoCode->percentage;
+    $discountAmount = ($subtotal * $discountPercentage) / 100;
+    $total = $subtotal + 350 - $discountAmount;
+
+    // Store promo details in the session
+    session()->put('promo', [
+        'name' => $promoCode->name,
+        'discount_percentage' => $discountPercentage,
+        'discount_amount' => $discountAmount,
+        'total' => $total,
+    ]);
+
+    session()->flash('success', 'Promo code applied successfully.');
+    return redirect()->back(); // Redirect back with success message
+}
+
+
+    
+    
+    
+    
+
+    public function removePromo()
+    {
+        session()->forget('promo');  // Remove the promo code session
+        return redirect()->route('cart');  
+    }
+
+
 
     public function update(Request $request, $id)
     {
@@ -173,22 +233,36 @@ class CartController extends Controller
     
     
     
-    public function checkout()
+    public function checkout(Request $request)
     {
+        // Get the promo code from the query string, if any
+        $promoCode = $request->query('promo_code', null);
+        
         $userId = Auth::id();
         $cartItems = CartItem::where('user_id', $userId)->get();
-
+    
         foreach ($cartItems as $item) {
             $product = Product::find($item->product_id);
             $item->product_name = $product->product_name;
             $item->subtotal = $item->price * $item->quantity;
         }
-
+    
         $subtotal = $cartItems->sum('subtotal');
-        $total = $subtotal + 300; 
-
-        return view('frontend.checkout', compact('cartItems', 'subtotal', 'total'));
+        $deliveryFee = 350;
+        
+        $total = $subtotal + $deliveryFee;
+    
+        // If there's a promo code, apply the discount
+        $discountAmount = 0;
+        if ($promoCode && session('promo')) {
+            $discountAmount = session('promo.discount_amount');
+            $total -= $discountAmount; 
+        }
+    
+        return view('frontend.checkout', compact('cartItems', 'subtotal', 'total', 'discountAmount'));
     }
+    
+    
     
 
     public function buyNowCheckout($productId, Request $request)
@@ -207,7 +281,7 @@ class CartController extends Controller
         $quantity = (int)$request->get('quantity', 1); 
     
         $subtotal = $product->normal_price * $quantity; 
-        $total = $subtotal + 300; 
+        $total = $subtotal + 350; 
     
         return view('frontend.buy_now_checkout', compact('products', 'quantity', 'subtotal', 'total', 'selectedSize', 'selectedColor'));
     }

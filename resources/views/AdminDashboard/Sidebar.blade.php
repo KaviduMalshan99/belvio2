@@ -79,6 +79,12 @@
                             <span class="text">Blogs</span>  
                         </a>
                     </li>
+                    <li class="menu-item {{ request()->routeIs('promo_codes') ? 'active' : '' }}">
+                        <a class="menu-link" href="{{ route('promo_codes') }}">
+                        <i class="icon material-icons md-local_offer"></i>
+                            <span class="text">Promo Codes</span>  
+                        </a>
+                    </li>
                     <li class="menu-item has-submenu ">
                         <a class="menu-link" href="#">
                             <i class="icon material-icons md-description"></i>
