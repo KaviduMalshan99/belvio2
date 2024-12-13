@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    'notify' => [
+        'user_id' => env('NOTIFY_LK_USER_ID'),
+        'api_key' => env('NOTIFY_LK_API_KEY'),
+    ],
+
+    'genie' => [
+        'base_url' => env('GENIE_API_BASE_URL'),
+        'app_id' => env('GENIE_API_APP_ID'),
+        'key' => env('GENIE_API_KEY'),
+    ],
 ];
