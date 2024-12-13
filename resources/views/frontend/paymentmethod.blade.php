@@ -70,33 +70,26 @@
                         </div>
 
                         <!-- Credit/Debit Card Payment -->
-                        <div class="tab-pane fade show active" id="credit-card" role="tabpanel" aria-labelledby="credit-card-tab" style="width: 60%; margin-bottom: 30px;margin-top:30px;">
-                            <form action="{{ route('payment.initiate') }}" method="POST" id="paymentForm">
-                                @csrf
-                                <div class="mb-4">
-                                    <label for="cardName" class="form-label"><span class="text-danger me-1">*</span>Name on Card</label>
-                                    <input type="text" class="form-control square-input" name="cardName" id="cardName" placeholder="Name on Card" required>
+                        <div class="tab-pane fade" id="credit-card" role="tabpanel" aria-labelledby="credit-card-tab" style="width: 60%; margin-bottom: 30px;margin-top:30px;">
+                            <!-- <div class="mb-4">
+                                <label for="cardName" class="form-label"><span class="text-danger me-1">*</span>Name on Card</label>
+                                <input type="text" class="form-control square-input" id="cardName" placeholder="Name on Card" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="cardNumber" class="form-label"><span class="text-danger me-1">*</span>Card Number</label>
+                                <input type="text" class="form-control square-input" id="cardNumber" placeholder="Card Number" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="expiryDate" class="form-label"><span class="text-danger me-1">*</span>Expiry Date</label>
+                                    <input type="text" class="form-control square-input" id="expiryDate" placeholder="MM/YY" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="cardNumber" class="form-label"><span class="text-danger me-1">*</span>Card Number</label>
                                     <input type="tel" class="form-control square-input" name="cardNumber" id="cardNumber" placeholder="Card Number" required pattern="\d{13,19}" title="Card number should be between 13 to 19 digits">
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <label for="expiryDate" class="form-label"><span class="text-danger me-1">*</span>Expiry Date</label>
-                                        <!-- Input for expiry date manually with JS auto-format -->
-                                        <input type="text" class="form-control square-input" name="expiryDate" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-                                        <label for="cvv" class="form-label"><span class="text-danger me-1">*</span>CVV</label>
-                                        <input type="text" class="form-control square-input" name="cvv" id="cvv" placeholder="123" required minlength="3" maxlength="4" title="CVV should be 3 or 4 digits">
-                                    </div>
-                                </div>
-                                <input type="hidden" name="amount" value="{{ number_format($order->total_cost, 2) }}">
-                                <button type="submit" class="btn" style="background-color: rgb(238, 82, 10); color: white; width: 48%; margin-top: 2rem;">Pay Now</button>
-                            </form>
-
+                            </div> -->
+                            <a  href="{{route('transaction',$order->order_code)}}" type="button" class="btn" style="background-color: rgb(238, 82, 10); color: white; width: 48%; margin-top: 2rem;">Pay Now</a>
                         </div>
                     </div>
                 </div>
