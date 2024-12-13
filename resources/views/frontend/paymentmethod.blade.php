@@ -81,6 +81,7 @@
                                     <label for="cardNumber" class="form-label"><span class="text-danger me-1">*</span>Card Number</label>
                                     <input type="tel" class="form-control square-input" name="cardNumber" id="cardNumber" placeholder="Card Number" required pattern="\d{13,19}" title="Card number should be between 13 to 19 digits">
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label for="expiryDate" class="form-label"><span class="text-danger me-1">*</span>Expiry Date</label>
@@ -95,6 +96,7 @@
                                 <input type="hidden" name="amount" value="{{ number_format($order->total_cost, 2) }}">
                                 <button type="submit" class="btn" style="background-color: rgb(238, 82, 10); color: white; width: 48%; margin-top: 2rem;">Pay Now</button>
                             </form>
+
                         </div>
                     </div>
                 </div>

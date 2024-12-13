@@ -344,7 +344,7 @@
                     <!-- Slide 3 -->
                     <li data-transition="random">
                         <!-- Main Image -->
-                        <img src="{{ asset('images/slider3.jpg') }}" alt="" data-bgposition="center center" data-no-retina>
+                        <img src="{{ asset('images/slider3image.jpg') }}" alt="" data-bgposition="center center" data-no-retina>
                        
                         <!-- Layers -->
                         <div class="tp-caption tp-resizeme text-333 font-weight-300 text-right"
