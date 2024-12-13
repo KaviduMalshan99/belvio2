@@ -44,10 +44,10 @@
 </head>
 
 <body class="header_sticky header-style-2 topbar-style-2 topbar-width-94 topbar-divider has-menu-extra">
-    <!-- Preloader -->
+    <!-- Preloader
     <div id="loading-overlay">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <!-- Boxed -->
     <div class="boxed">

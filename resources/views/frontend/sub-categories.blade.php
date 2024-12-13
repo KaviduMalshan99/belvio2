@@ -80,32 +80,7 @@
                     </div><!-- /.widget-search -->
 
 
-                    <!-- Filter by Category -->
-                    <div class="widget widget-sort-by">
-                        <h5 class="widget-title">Filter by Category</h5>
-                        <ul>
-                            <li><a href="{{ route('shop')}}">
-                                    All Products
-                                </a></li>
-                            @foreach($categories as $category)
-                            <li>
-                                <a href="{{ route('shop', ['category' => $category->name]) }}">
-                                    {{ $category->name }}
-                                </a>
-                                @php
-                                $sub_catrgories = App\Models\Subcategory::where('category_id',$category->id)->get();
-                                @endphp
-                                @foreach($sub_catrgories as $sub_category)
-                            <li class="px-4">
-                                <a href="{{ route('shop.sub_category', ['category_id' => $category->id,'sub_category_id' => $sub_category->id]) }}">
-                                    {{ $sub_category->name }}
-                                </a>
-                            </li>
-                            @endforeach
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div><!-- /.widget-sort-by -->
+
 
                     <!-- Filter by Colors -->
                     @if($products->pluck('variations')->flatten()->where('type', 'color')->isNotEmpty())
@@ -177,6 +152,7 @@
 
             <!-- Product Display Section -->
             <div class="col-md-9">
+                <p style="font-weight: bold; font-size:32px">"<span>{{$sub_category}}</span>"</p>
                 <div class="filter-shop clearfix">
                     <p class="showing-product float-right">
                         Showing {{ $products->firstItem() }}–{{ $products->lastItem() }} of {{ $products->total() }} Products
@@ -194,29 +170,13 @@
                                 @if($product->created_at->diffInDays(now()) < 7)
                                     <span class="new">New</span>
                                     @endif
-
-                                    @if($product->promotions->isNotEmpty()) <!-- Check if there are promotions -->
-                                        <span class="discount-badge">
-                                            - {{ round($product->promotions->first()->discount) }}% 
-                                        </span>
-
-                                        @endif
                             </div>
                             <div class="product-info clearfix">
                                 <span class="product-title">{{ $product->product_name }}</span>
                                 <div class="price">
-                                    @if($product->promotions->isNotEmpty())
-                                        <ins>
-                                            <span class="amount" style="color:green;">LKR {{ ($product->promotions->first()->discount_price), 2 }}</span> 
-                                        </ins>
-                                        <del>
-                                            <span class="amount" style="color:red; font-weight:300">LKR {{ number_format($product->normal_price, 2) }}</span> 
-                                        </del>
-                                    @else
-                                        <ins>
-                                            <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
-                                        </ins>
-                                    @endif
+                                    <ins>
+                                        <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                    </ins>
                                 </div>
                             </div>
                             <div class="add-to-cart text-center">
@@ -338,20 +298,10 @@
                                                 </div>
                                                 @endif
 
-                                                <div class="mb-3 product-price d-flex align-items-center">
-                                                    @if($product->promotions->isNotEmpty())
-                                                        <h5 class="mb-0" style="">
-                                                            <span class="amount" style="color:green;">LKR {{ number_format($product->promotions->first()->discount_price, 2) }}</span> 
-                                                        </h5>
-                                                        <span style="">&nbsp;</span> 
-                                                        <del>
-                                                            <span class="amount" style="color:red; font-weight:300;">LKR {{ number_format($product->normal_price, 2) }}</span> 
-                                                        </del>
-                                                    @else
-                                                        <h5>
-                                                            <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
-                                                        </h5>
-                                                    @endif
+                                                <div class="mt-8 mb-3 product-price d-flex align-items-center">
+                                                    <span class="" style="margin-right: 10px;">
+                                                        <h5 class="mb-0">Rs {{ $product->normal_price }}</h5>
+                                                    </span>
                                                 </div>
 
                                                 @auth

@@ -183,8 +183,12 @@ class CartController extends Controller
                 return redirect()->route('login')->with('error', 'Please log in to add items to the cart.');
             }
     
-            $product = Product::findOrFail($productId);
-            $price = $product->normal_price; 
+            $product = Product::with('promotions')->findOrFail($productId);
+    
+            // Determine price: use discount price if available, otherwise normal price
+            $price = $product->promotions->isNotEmpty()
+                ? $product->promotions->first()->discount_price
+                : $product->normal_price;
     
             if (is_null($price)) {
                 return redirect()->back()->with('error', 'Product price is not available.');
@@ -207,7 +211,7 @@ class CartController extends Controller
             if ($existingCartItem) {
                 // If the same combination of size/color exists, update the quantity and subtotal
                 $existingCartItem->quantity += $quantity;
-                $existingCartItem->subtotal = $existingCartItem->quantity * $price; 
+                $existingCartItem->subtotal = $existingCartItem->quantity * $price;
                 $existingCartItem->save();
                 return redirect()->back()->with('success', 'Product added to cart');
             } else {
@@ -218,18 +222,18 @@ class CartController extends Controller
                     'quantity' => $quantity,
                     'size' => $size,
                     'color' => $color,
-                    'price' => $price, 
-                    'subtotal' => $subtotal, 
+                    'price' => $price,
+                    'subtotal' => $subtotal,
                 ]);
     
                 return redirect()->back()->with('success', 'Product added to cart!');
             }
     
         } catch (\Exception $e) {
-           
             return redirect()->back()->with('error', 'Something went wrong while adding the item to your cart.');
         }
     }
+    
     
     
     

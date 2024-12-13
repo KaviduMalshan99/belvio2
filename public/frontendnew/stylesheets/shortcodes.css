@@ -700,19 +700,15 @@
 .wrap-contact.style2 .contact-name input[type="text"],
 .wrap-contact.style2 .contact-email input[type="email"],
 .wrap-contact.style2 .contact-subject input[type="text"],
-.wrap-contact.style2 .contact-message textarea {
+.wrap-contact.style2 .contact-message input[type="text"] {
 	border:  none;
 	border-bottom: 1px solid #ebebeb;
 	font-size: 18px;
 	line-height: 37px;
-	padding-left: 0px;
+	line-height: 37px;
+	padding: 10px;
 }
 
-.wrap-contact.style2 .contact-name input[type="text"],
-.wrap-contact.style2 .contact-email input[type="email"],
-.wrap-contact.style2 .contact-subject input[type="text"] {
-	height: 37px;
-}
 
 .wrap-contact label {
 	font-size: 18px;
@@ -724,15 +720,9 @@
 	margin-bottom: 33px;
 }
 
-.wrap-contact.style2 .contact-message textarea {
-	height: 84px;
-	padding: 38px 0px 0px 0px;
-}
-
 .wrap-contact.style2 input[type="text"]:focus,
-.wrap-contact.style2 input[type="email"]:focus,
-.wrap-contact.style2 textarea:focus {
-	border-bottom: 1px solid #f63440;
+.wrap-contact.style2 input[type="email"]:focus{
+	border-bottom: 4px solid #f63440;
 }
 
 .wrap-contact .form-submit button {

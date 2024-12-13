@@ -23,13 +23,12 @@ use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\customerProfileController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PromocodeController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Log;
 
-
+use App\Http\Controllers\Auth\OtpLoginController;
 use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Mail;
@@ -42,9 +41,27 @@ Route::get('/store',[HomeController::class, 'show_store'])->name('show_store');
 Route::get('/contact-us',[HomeController::class, 'contact_us'])->name('contactus');
 Route::post('/contact-us',[ContactFormController::class, 'sendContactForm'])->name('send_mail');
 Route::get('/shop',[ShopController::class, 'shop'])->name('shop');
+Route::get('/shop/sub-category/{category_id}/{sub_category_id}',[ShopController::class, 'sub_catogory_view'])->name('shop.sub_category');
 
 Route::get('/search-suggestions', [HomeController::class, 'searchSuggestions'])->name('search.suggestions');
 Route::get('/search-results', [HomeController::class, 'searchResults'])->name('search.results');
+
+
+Route::post('/payment/initiate', [PaymentController::class, 'initiatePayment'])->name('payment.initiate');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+
+
+//OTP Routes
+// Route::get('/verify-otp', [OtpLoginController::class, 'showOtpLoginForm'])->name('otp.login');
+// Route::post('/send-otp', [OtpLoginController::class, 'sendOtp'])->name('send-otp');
+Route::get('/send-otp', [OtpLoginController::class, 'showOtpLoginForm'])->name('show_otp_form');
+Route::post('/send-otp', [OtpLoginController::class, 'sendOtp'])->name('send-otp');
+Route::post('/verify-otp', [OtpLoginController::class, 'verifyOtp'])->name('verify_otp');
+Route::get('/verify-finish', [OtpLoginController::class, 'finish'])->name('otp-msg');
+
+
+Route::get('/forget-password', [OtpLoginController::class, 'showRestpasswordForm'])->name('frogeten_psw');
 
 
 //profile
@@ -72,7 +89,6 @@ Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->nam
 Route::post('/apply-promo', [CartController::class, 'applyPromo'])->name('apply.promo');
 Route::post('/remove-promo', [CartController::class, 'removePromo'])->name('remove.promo');
 
-
 Route::get('/buy-now-checkout/{product_id}', [CartController::class, 'buyNowCheckout'])->name('buyNow.checkout');
 Route::post('/buy_now_place-order', [OrderController::class, 'buynow_placeOrder'])->name('buynow_placeOrder');
 Route::post('/place-order', [CustomerOrderController::class, 'placeOrder'])->name('placeOrder');
@@ -87,6 +103,8 @@ Route::get('/payment/{order_code}', [PaymentController::class, 'showPaymentPage'
 Route::post('/confirm-cod-order/{order_code}', [PaymentController::class, 'confirmCODOrder'])->name('confirm.cod.order');
 Route::get('/order/order_received/{order_code}', [PaymentController::class, 'getOrderDetails'])->name('order.thankyou');
 
+Route::get('/transaction/{order_code}', [PaymentController::class, 'createTransaction'])->name('transaction');
+Route::get('/payment_received', [PaymentController::class, 'getOrderDetails2'])->name('order.thankyou2');
 
 Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 Route::delete('/profile/reviews/{review}', [ReviewController::class, 'customerDestroy'])->name('customer.reviews.destroy');
@@ -134,6 +152,18 @@ Route::get('/cus-register', function () {
 Route::get('/cus-login', function () {
     return view('frontend.login');
 })->name('cus-login');
+
+Route::get('/faq', function () {  // new route faq
+    return view('frontend.faq');
+})->name('faq');
+
+Route::get('/privacy-policy', function () {  // new route faq
+    return view('frontend.privacy-policy');
+})->name('privacy-policy');
+
+Route::get('/term-ofservice', function () {  // new route faq
+    return view('frontend.term-ofservice');
+})->name('term-ofservice');
 
 
 Route::post('/cus-register/store', [RegisterController::class, 'store'])->name('registerStore');

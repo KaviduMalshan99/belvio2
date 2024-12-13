@@ -12,20 +12,22 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
     public function index()
     {
         $categories = Category::all();
-        $products = Product::with('category', 'images')
-                           ->take(12)
-                           ->get();
-
+        $products = Product::with('category', 'images', 'promotions') 
+                        ->take(12)
+                        ->get();
+    
         $blogs = Blog::where('status', 'Active')
-                 ->latest()
-                 ->take(3)
-                 ->get();                  
-
-        return view('frontend.Home', compact('products', 'categories','blogs'));
+                    ->latest()
+                    ->take(3)
+                    ->get();
+    
+        return view('frontend.Home', compact('products', 'categories', 'blogs'));
     }
+    
 
     
     public function about_us(){
