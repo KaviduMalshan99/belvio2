@@ -29,9 +29,9 @@
                 <div class="widget widget-link link-faq">
                     <h5 style="color: #fff; margin-bottom: 15px;">Help & Policies</h5>
                     <ul>
-                        <li>• <a href="#">FAQs</a></li>
-                        <li>• <a href="#">Term of service</a></li>
-                        <li>• <a href="#">Privacy Policy</a></li>
+                        <li>• <a href="{{route('faq')}}">FAQs</a></li>
+                        <li>• <a href="{{route('term-ofservice')}}"> Term of service</a></li>
+                        <li>• <a href="{{route('privacy-policy')}}">Privacy Policy</a></li>
                         <li>• <a href="{{route('returns')}}">Returns</a></li>
                     </ul>
                 </div><!-- /.widget -->
@@ -79,7 +79,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="copyright text-center" style="color: #fff;">
+                <p class="text-center copyright" style="color: #fff;">
                     <script>document.write(new Date().getFullYear());</script> 
                     @ <a href="https://esupport.live/" style=" text-decoration: none;">eSupport Technologies</a> All rights reserved
                 </p>
