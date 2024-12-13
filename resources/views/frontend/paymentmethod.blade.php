@@ -71,7 +71,7 @@
 
                         <!-- Credit/Debit Card Payment -->
                         <div class="tab-pane fade" id="credit-card" role="tabpanel" aria-labelledby="credit-card-tab" style="width: 60%; margin-bottom: 30px;margin-top:30px;">
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <label for="cardName" class="form-label"><span class="text-danger me-1">*</span>Name on Card</label>
                                 <input type="text" class="form-control square-input" id="cardName" placeholder="Name on Card" required>
                             </div>
@@ -88,7 +88,7 @@
                                     <label for="cvv" class="form-label"><span class="text-danger me-1">*</span>CVV</label>
                                     <input type="text" class="form-control square-input" id="cvv" placeholder="123" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <a  href="{{route('transaction',$order->order_code)}}" type="button" class="btn" style="background-color: rgb(238, 82, 10); color: white; width: 48%; margin-top: 2rem;">Pay Now</a>
                         </div>
                     </div>
