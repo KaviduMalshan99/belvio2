@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -24,12 +25,26 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        try {
+            // Attempt to authenticate the user
+            $request->authenticate();
 
-        $request->session()->regenerate();
-        //dd($request);
-        return redirect()->intended(route('home', absolute: false));
+            // Regenerate session to prevent session fixation attacks
+            $request->session()->regenerate();
+
+            // Forget temporary session data
+            Session::forget(['email', 'psw', 'phone_number', 'otp']);
+
+            // Redirect to the intended route or fallback to 'home'
+            return redirect()->intended(route('home', absolute: false));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Redirect to the 'cus_login' route with an error message
+            return redirect()
+                ->route('cus_login')
+                ->with(['error' => 'Invalid email or password. Please try again.']);
+        }
     }
+
 
     /**
      * Destroy an authenticated session.

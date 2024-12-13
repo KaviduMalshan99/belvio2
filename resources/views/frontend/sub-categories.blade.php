@@ -80,32 +80,7 @@
                     </div><!-- /.widget-search -->
 
 
-                    <!-- Filter by Category -->
-                    <div class="widget widget-sort-by">
-                        <h5 class="widget-title">Filter by Category</h5>
-                        <ul>
-                            <li><a href="{{ route('shop')}}">
-                                    All Products
-                                </a></li>
-                            @foreach($categories as $category)
-                            <li>
-                                <a href="{{ route('shop', ['category' => $category->name]) }}">
-                                    {{ $category->name }}
-                                </a>
-                                @php
-                                $sub_catrgories = App\Models\Subcategory::where('category_id',$category->id)->get();
-                                @endphp
-                                @foreach($sub_catrgories as $sub_category)
-                            <li class="px-4">
-                                <a href="{{ route('shop.sub_category', ['category_id' => $category->id,'sub_category_id' => $sub_category->id]) }}">
-                                    {{ $sub_category->name }}
-                                </a>
-                            </li>
-                            @endforeach
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div><!-- /.widget-sort-by -->
+
 
                     <!-- Filter by Colors -->
                     @if($products->pluck('variations')->flatten()->where('type', 'color')->isNotEmpty())
@@ -177,6 +152,7 @@
 
             <!-- Product Display Section -->
             <div class="col-md-9">
+                <p style="font-weight: bold; font-size:32px">"<span>{{$sub_category}}</span>"</p>
                 <div class="filter-shop clearfix">
                     <p class="showing-product float-right">
                         Showing {{ $products->firstItem() }}–{{ $products->lastItem() }} of {{ $products->total() }} Products
