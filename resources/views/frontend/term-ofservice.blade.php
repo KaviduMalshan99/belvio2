@@ -53,8 +53,7 @@
 
 </style>
 
-       
-       <!-- Page title -->
+<!-- Page title -->
 <div class="page-title parallax parallax1">
     <div class="container">
         <div class="row">
@@ -100,5 +99,4 @@
             </div>
         </section>
         <!-- End Customer Service Area -->
-
 @endsection

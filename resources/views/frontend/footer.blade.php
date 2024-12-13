@@ -30,7 +30,7 @@
                     <h5 style="color: #fff; margin-bottom: 15px;">Help & Policies</h5>
                     <ul>
                         <li>• <a href="{{route('faq')}}">FAQs</a></li>
-                        <li>• <a href="{{route('term-ofservice')}}">Term of service</a></li>
+                        <li>• <a href="{{route('term-ofservice')}}"> Term of service</a></li>
                         <li>• <a href="{{route('privacy-policy')}}">Privacy Policy</a></li>
                         <li>• <a href="{{route('returns')}}">Returns</a></li>
                     </ul>

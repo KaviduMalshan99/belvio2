@@ -129,15 +129,15 @@ Route::get('/cus-login', function () {
     return view('frontend.login');
 })->name('cus-login');
 
-Route::get('/faq', function () {  //new route faq
+Route::get('/faq', function () {  // new route faq
     return view('frontend.faq');
 })->name('faq');
 
-Route::get('/privacy-policy', function () {  //new route faq
+Route::get('/privacy-policy', function () {  // new route faq
     return view('frontend.privacy-policy');
 })->name('privacy-policy');
 
-Route::get('/term-ofservice', function () {  //new route faq
+Route::get('/term-ofservice', function () {  // new route faq
     return view('frontend.term-ofservice');
 })->name('term-ofservice');
 

@@ -27,7 +27,6 @@
         text-decoration: none  !important;
         font-weight: bold  !important;
 }
-
 </style>
        
        <!-- Page title -->

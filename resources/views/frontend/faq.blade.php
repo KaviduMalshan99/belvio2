@@ -202,5 +202,4 @@
                 </div><!-- /.row -->
             </div><!-- /.container -->
         </section><!-- /.flat-row -->
-		
 @endsection		
