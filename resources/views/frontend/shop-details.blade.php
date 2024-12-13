@@ -218,7 +218,7 @@ a.disabled {
                                     @if ($product->quantity > 0)
                                     <span class="text-success fw-bold">In Stock</span>
                                     @else
-                                    <span class="text-danger fw-bold">Out of Stock</span>
+                                    <span class="text-danger fw-bold">Pre Order</span>
                                     @endif
                                 </p>
 

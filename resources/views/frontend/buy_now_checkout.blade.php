@@ -110,7 +110,7 @@
                             <!-- Delivery Fee Row -->
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="fw-bold" style="font-size: 14px;">Delivery Fee</span>
-                                <span class="fw-semibold text-end" style="font-size: 14px;">Rs {{ number_format(300, 2) }}</span>
+                                <span class="fw-semibold text-end" style="font-size: 14px;">Rs {{ number_format(350, 2) }}</span>
                             </div>
 
                             <!-- Total Row -->

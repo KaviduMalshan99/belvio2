@@ -103,11 +103,11 @@
                     <h5 class="mb-4" style="font-size: 20px;">Order Summary</h5>
                     <div class="d-flex justify-content-between mb-3">
                         <p class="mb-2">Subtotal:</p>
-                        <p class="mb-2">Rs. {{ number_format($order->total_cost - 300, 2) }}</p>
+                        <p class="mb-2">Rs. {{ number_format($order->total_cost - 350, 2) }}</p>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
                         <p class="mb-2">Delivery Fee:</p>
-                        <p class="mb-2">Rs. 300.00</p>
+                        <p class="mb-2">Rs. 350.00</p>
                     </div>
                     <hr />
                     <div class="d-flex justify-content-between mt-3">

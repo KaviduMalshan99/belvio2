@@ -112,20 +112,28 @@
                             <!-- Subtotal Row -->
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="fw-bold" style="font-size: 14px;">Subtotal</span>
-                                <span class="fw-semibold text-end" style="font-size: 14px;">Rs. {{$total}}</span>
+                                <span class="fw-semibold text-end" style="font-size: 14px;">Rs. {{$subtotal}}</span>
                             </div>
+
+                            <!-- Promo Discount Row -->
+                            @if ($discountAmount > 0)
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="fw-bold" style="font-size: 14px;">Promo Discount</span>
+                                    <span class="fw-semibold text-end" style="font-size: 14px;">- Rs. {{ number_format($discountAmount, 2) }}</span>
+                                </div>
+                            @endif
 
                             <!-- Delivery Fee Row -->
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="fw-bold" style="font-size: 14px;">Delivery Fee</span>
-                                <span class="fw-semibold text-end" style="font-size: 14px;">Rs 300.00</span>
+                                <span class="fw-semibold text-end" style="font-size: 14px;">Rs 350.00</span>
                             </div>
 
                             <!-- Total Row -->
                             <hr class="my-3">
                             <div class="d-flex justify-content-between">
                                 <span class="fw-bold text-lg" style="font-size: 16px;">Total</span>
-                                <span class="fw-bold text-lg text-end" style="font-size: 16px;">Rs. {{($total)+ 300}}</span>
+                                <span class="fw-bold text-lg text-end" style="font-size: 16px;">Rs. {{ number_format($total + 350 - $discountAmount, 2) }}</span>
                             </div>
                         </div>
 
