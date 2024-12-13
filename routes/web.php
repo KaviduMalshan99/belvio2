@@ -25,6 +25,7 @@ use App\Http\Controllers\customerProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PromocodeController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Log;
 
@@ -244,6 +245,13 @@ Route::get('/admin/promo_codes', [PromocodeController::class, 'show'])->name('pr
 Route::post('/admin/promo_codes', [PromocodeController::class, 'store'])->name('promo_codes.store');
 Route::delete('/admin/promo_codes/{id}', [PromocodeController::class, 'destroy'])->name('promo_codes.destroy');
 Route::put('/admin/promo_codes/{id}', [PromocodeController::class, 'update'])->name('promocode.update');
+
+Route::get('/admin/promotions', [PromotionController::class, 'show'])->name('promotions');
+Route::post('/admin/promotions', [PromotionController::class, 'store'])->name('promotions.store');
+Route::get('/admin/promotions/add', [PromotionController::class, 'displayProducts'])->name('add_promotions');
+Route::get('promotions/{promotion}/edit', [PromotionController::class, 'edit'])->name('promotion.edit');
+Route::put('promotions/{promotion}', [PromotionController::class, 'update'])->name('promotion.update');
+Route::delete('/admin/promotions/{id}', [PromotionController::class, 'destroy'])->name('promotion.destroy');
 
 
 // admin_reports

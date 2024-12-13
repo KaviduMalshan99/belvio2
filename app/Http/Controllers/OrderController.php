@@ -101,7 +101,7 @@ class OrderController extends Controller
             $promoCode = session('promo.name'); 
             $promoDiscount = session('promo.discount_amount', 0); 
     
-            $totalCost = $subtotal + $deliveryFee - $promoDiscount; // Apply the discount to the total cost
+            $totalCost = $subtotal + $deliveryFee - $promoDiscount; 
     
             $customerName = $request->input('first_name') . ' ' . $request->input('last_name');
     
@@ -118,8 +118,8 @@ class OrderController extends Controller
                 'postal_code' => $request->input('postal_code'),
                 'date' => Carbon::now()->format('Y-m-d'),
                 'total_cost' => $totalCost,
-                'promo_code' => $promoCode,  // Store promo code
-                'promo_discount' => $promoDiscount,  // Store promo discount
+                'promo_code' => $promoCode, 
+                'promo_discount' => $promoDiscount,  
                 'status' => 'Pending',
                 'payment_method' => $request->input('payment_method', null),
                 'payment_status' => 'Pending',

@@ -33,43 +33,40 @@
                             </tr>
                         </thead>
                         <tbody>
-    @if($promocodes->isEmpty())
-        <tr>
-            <td colspan="8" class="text-center">No promo codes found.</td>
-        </tr>
-    @else
-        @foreach($promocodes as $promocode)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $promocode->name }}</td>
-                <td>{{ $promocode->description }}</td>
-                <td>{{ $promocode->percentage }} %</td>
-                <td>{{ $promocode->start_date }}</td>
-                <td>{{ $promocode->end_date }}</td>
-                <td class="text-end">
-                    <div>
-                        <!-- Edit Promo Button -->
-                        <button type="button" class="btn btn-warning btn-sm me-2 editPromoBtn" data-promo-id="{{ $promocode->id }}" data-promo-name="{{ $promocode->name }}" data-promo-description="{{ $promocode->description }}" data-promo-percentage="{{ $promocode->percentage }}" data-promo-start="{{ $promocode->start_date }}" data-promo-end="{{ $promocode->end_date }}">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                            @if($promocodes->isEmpty())
+                                <tr>
+                                    <td colspan="8" class="text-center">No promo codes found.</td>
+                                </tr>
+                            @else
+                                @foreach($promocodes as $promocode)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $promocode->name }}</td>
+                                        <td>{{ $promocode->description }}</td>
+                                        <td>{{ $promocode->percentage }} %</td>
+                                        <td>{{ $promocode->start_date }}</td>
+                                        <td>{{ $promocode->end_date }}</td>
+                                        <td class="text-end">
+                                            <div>
+                                                <!-- Edit Promo Button -->
+                                                <button type="button" class="btn btn-warning btn-sm me-2 editPromoBtn" data-promo-id="{{ $promocode->id }}" data-promo-name="{{ $promocode->name }}" data-promo-description="{{ $promocode->description }}" data-promo-percentage="{{ $promocode->percentage }}" data-promo-start="{{ $promocode->start_date }}" data-promo-end="{{ $promocode->end_date }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
 
-                        <!-- Delete Promo Button -->
-                        <form id="delete-form-{{ $promocode->id }}" action="{{ route('promo_codes.destroy', $promocode->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form-{{ $promocode->id }}', 'Are you sure you want to delete this promocode?');">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
-    @endif 
-</tbody>
-
-
-
+                                                <!-- Delete Promo Button -->
+                                                <form id="delete-form-{{ $promocode->id }}" action="{{ route('promo_codes.destroy', $promocode->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form-{{ $promocode->id }}', 'Are you sure you want to delete this promocode?');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif 
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -73,7 +73,7 @@ class CartController extends Controller
 
     if (!$promoCode) {
         session()->flash('error', 'Invalid or expired promo code.');
-        return redirect()->back(); // Redirect back with error
+        return redirect()->back();
     }
 
     // Check if the cart is empty
@@ -82,7 +82,7 @@ class CartController extends Controller
 
     if ($cartItems->isEmpty()) {
         session()->flash('error', 'Your cart is empty.');
-        return redirect()->back(); // Redirect back with error
+        return redirect()->back(); 
     }
 
     // Calculate totals
@@ -103,7 +103,7 @@ class CartController extends Controller
     ]);
 
     session()->flash('success', 'Promo code applied successfully.');
-    return redirect()->back(); // Redirect back with success message
+    return redirect()->back(); 
 }
 
 
