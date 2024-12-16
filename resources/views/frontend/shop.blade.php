@@ -195,16 +195,19 @@
                                     <span class="new">New</span>
                                     @endif
 
+
                                     @if($product->promotions->isNotEmpty()) <!-- Check if there are promotions -->
                                         <span class="discount-badge">
                                             - {{ round($product->promotions->first()->discount) }}% 
                                         </span>
 
                                         @endif
+
                             </div>
                             <div class="product-info clearfix">
                                 <span class="product-title">{{ $product->product_name }}</span>
                                 <div class="price">
+
                                     @if($product->promotions->isNotEmpty())
                                         <ins>
                                             <span class="amount" style="color:green;">LKR {{ ($product->promotions->first()->discount_price), 2 }}</span> 
@@ -217,6 +220,7 @@
                                             <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
                                         </ins>
                                     @endif
+
                                 </div>
                             </div>
                             <div class="add-to-cart text-center">
@@ -338,6 +342,7 @@
                                                 </div>
                                                 @endif
 
+
                                                 <div class="mb-3 product-price d-flex align-items-center">
                                                     @if($product->promotions->isNotEmpty())
                                                         <h5 class="mb-0" style="">
@@ -352,6 +357,7 @@
                                                             <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
                                                         </h5>
                                                     @endif
+
                                                 </div>
 
                                                 @auth

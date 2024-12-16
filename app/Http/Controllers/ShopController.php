@@ -17,7 +17,9 @@ class ShopController extends Controller
         $categories = Category::all();
 
         // Fetch products with associated images and variations (for color and size filters)
+
         $products = Product::with(['images', 'variations','promotions']);
+
 
         // Filter by Category (if a category is selected)
         if ($request->has('category')) {

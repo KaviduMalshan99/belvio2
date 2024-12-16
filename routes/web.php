@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::get('/about-us',[HomeController::class, 'about_us'])->name('aboutus');
@@ -61,6 +61,12 @@ Route::post('/verify-otp', [OtpLoginController::class, 'verifyOtp'])->name('veri
 Route::get('/verify-finish', [OtpLoginController::class, 'finish'])->name('otp-msg');
 
 
+Route::get('/empty-otp', function () {
+    Auth::logout();
+    return redirect()-> route('cus-login')->with('error', 'OTP fields are empty. Try Again'); // Redirect to the login page after logout
+})->name('detect_backward');
+
+
 Route::get('/forget-password', [OtpLoginController::class, 'showRestpasswordForm'])->name('frogeten_psw');
 
 
@@ -86,8 +92,10 @@ Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
 Route::put('/cart/update/{cartItem}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
 
+
 Route::post('/apply-promo', [CartController::class, 'applyPromo'])->name('apply.promo');
 Route::post('/remove-promo', [CartController::class, 'removePromo'])->name('remove.promo');
+
 
 Route::get('/buy-now-checkout/{product_id}', [CartController::class, 'buyNowCheckout'])->name('buyNow.checkout');
 Route::post('/buy_now_place-order', [OrderController::class, 'buynow_placeOrder'])->name('buynow_placeOrder');
@@ -282,6 +290,7 @@ Route::get('/admin/promotions/add', [PromotionController::class, 'displayProduct
 Route::get('promotions/{promotion}/edit', [PromotionController::class, 'edit'])->name('promotion.edit');
 Route::put('promotions/{promotion}', [PromotionController::class, 'update'])->name('promotion.update');
 Route::delete('/admin/promotions/{id}', [PromotionController::class, 'destroy'])->name('promotion.destroy');
+
 
 
 // admin_reports

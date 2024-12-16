@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
+
 use Illuminate\Support\Facades\Redirect;
+
 
 
 class PaymentController extends Controller
@@ -101,6 +103,10 @@ class PaymentController extends Controller
         return view('frontend.order_received', compact('order', 'orderItems'));
     }
 
+    public function getOrderDetails2()
+    {
+        return view('frontend.payment_received');
+    }
 
     public function initiatePayment(Request $request)
     {
