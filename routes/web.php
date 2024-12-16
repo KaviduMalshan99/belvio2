@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail;
-
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::get('/about-us',[HomeController::class, 'about_us'])->name('aboutus');
@@ -59,6 +59,10 @@ Route::post('/send-otp', [OtpLoginController::class, 'sendOtp'])->name('send-otp
 Route::post('/verify-otp', [OtpLoginController::class, 'verifyOtp'])->name('verify_otp');
 Route::get('/verify-finish', [OtpLoginController::class, 'finish'])->name('otp-msg');
 
+Route::get('/empty-otp', function () {
+    Auth::logout();
+    return redirect()-> route('cus-login')->with('error', 'OTP fields are empty. Try Again'); // Redirect to the login page after logout
+})->name('detect_backward');
 
 Route::get('/forget-password', [OtpLoginController::class, 'showRestpasswordForm'])->name('frogeten_psw');
 

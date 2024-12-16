@@ -25,8 +25,6 @@
         background-color: white;
         border-radius: 12px;
         padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        /* Optional shadow for better aesthetics */
     }
 
     .title {
@@ -42,7 +40,7 @@
         text-align: center;
     }
 
-    .inputs {       
+    .inputs {
         margin-top: 10px;
     }
 
@@ -186,34 +184,34 @@ bWVzdGFtcAAyMDIzLTAyLTEzVDEzOjE1OjUxKzAwOjAwIIO3fQAAAABJRU5ErkJggg=="></image>
         <label class="mobile_no" id="mobile-no"></label>
         <form class="form" method="POST" action="{{route('verify_otp')}}" id=otp-form>
             @csrf
-        <div class="inputs">
-            <input id="input1" type="text" maxlength="1" name="n_1" required>
-            <input id="input2" type="text" maxlength="1" name="n_2" required>
-            <input id="input3" type="text" maxlength="1" name="n_3" required>
-            <input id="input4" type="text" maxlength="1" name="n_4" required>
-            <input id="input5" type="text" maxlength="1" name="n_5" required>
-            <input id="input6" type="text" maxlength="1" name="n_6" required>
-        </div>
+            <div class="inputs">
+                <input id="input1" type="text" maxlength="1" name="n_1" required>
+                <input id="input2" type="text" maxlength="1" name="n_2" required>
+                <input id="input3" type="text" maxlength="1" name="n_3" required>
+                <input id="input4" type="text" maxlength="1" name="n_4" required>
+                <input id="input5" type="text" maxlength="1" name="n_5" required>
+                <input id="input6" type="text" maxlength="1" name="n_6" required>
+            </div>
 
-        <button type="submit" class="action">Verify</button>
+            <button type="submit" class="action">Verify</button>
         </form>
     </div>
 </div>
 
 <script>
+    // Get the phone number passed from the controller
     const mobileNo = @json($phoneNumber);
 
     // Function to hide middle digits of mobile number
     function hideMiddleDigits(mobile) {
         let newmobile = ""; // Initialize newmobile
-        newmobile += mobile.slice(0, 4); //add first 4 digit
+        newmobile += mobile.slice(0, 4); // Add first 4 digits
 
         for (let i = 4; i < mobile.length - 3; i++) {
             newmobile += "*"; // Append '*' to newmobile
         }
 
-
-        //add last 3 digit
+        // Add last 3 digits
         newmobile += mobile.slice(-3);
 
         return newmobile;
@@ -224,6 +222,18 @@ bWVzdGFtcAAyMDIzLTAyLTEzVDEzOjE1OjUxKzAwOjAwIIO3fQAAAABJRU5ErkJggg=="></image>
         const formattedMobileNo = hideMiddleDigits(mobileNo);
         document.getElementById('mobile-no').textContent = formattedMobileNo;
     });
+
+    // Detect backward navigation
+    window.addEventListener('popstate', function() {
+        // Redirect to the logout route
+        window.location.href = "{{ route('detect_backward') }}";
+    });
+
+    // Push state to history to track backward navigation
+    window.addEventListener('load', function() {
+        history.pushState(null, document.title, location.href);
+    });
 </script>
+
 
 @endsection

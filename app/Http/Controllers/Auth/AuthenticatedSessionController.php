@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Redirect to the 'cus_login' route with an error message
             return redirect()
-                ->route('cus_login')
+                ->route('cus-login')
                 ->with(['error' => 'Invalid email or password. Please try again.']);
         }
     }
