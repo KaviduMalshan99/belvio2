@@ -17,7 +17,9 @@ class ShopController extends Controller
         $categories = Category::all();
 
         // Fetch products with associated images and variations (for color and size filters)
-        $products = Product::with(['images', 'variations']);
+
+        $products = Product::with(['images', 'variations','promotions']);
+
 
         // Filter by Category (if a category is selected)
         if ($request->has('category')) {
@@ -96,7 +98,7 @@ class ShopController extends Controller
 
     public function shop_details($product_id)
     {
-        $product = Product::with('category', 'images', 'variations')->findOrFail($product_id);
+        $product = Product::with('category', 'images', 'variations','promotions')->findOrFail($product_id);
 
         // Get related products from the same category, excluding the current product
         $relatedProducts = Product::where('category_id', $product->category_id)

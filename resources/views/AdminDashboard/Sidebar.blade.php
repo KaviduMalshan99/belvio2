@@ -21,17 +21,20 @@
                             <span class="text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="menu-item has-submenu {{ request()->is('admin/products*') || request()->is('admin/categories*') ? 'active' : '' }}">
+                    <li class="menu-item has-submenu {{ request()->is('admin/products*') || request()->is('admin/categories*') || request()->is('admin/promotions*') ? 'active' : '' }}">
                         <a class="menu-link" href="#">
                             <i class="icon material-icons md-shopping_bag"></i>
                             <span class="text">Products</span>
                         </a>
-                        <div class="submenu {{ request()->is('admin/products*') ||  request()->is('admin/categories*') ? 'show' : '' }}">
+                        <div class="submenu {{ request()->is('admin/products*') ||  request()->is('admin/categories*') ||  request()->is('admin/promotions*') ? 'show' : '' }}">
                             <a href="{{ route('products_list') }}" class="{{ request()->is('admin/products') ? 'active' : '' }}">
                                 Product List
                             </a>
                             <a href="{{ route('categories') }}" class="{{ request()->is('admin/categories') ? 'active' : '' }}">
                                 Categories
+                            </a>
+                            <a href="{{ route('promotions') }}" class="{{ request()->is('admin/promotions') ? 'active' : '' }}">
+                                Promotions
                             </a>
                         </div>
                     </li>

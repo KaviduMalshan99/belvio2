@@ -24,6 +24,7 @@ use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\customerProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Log;
 
@@ -59,10 +60,12 @@ Route::post('/send-otp', [OtpLoginController::class, 'sendOtp'])->name('send-otp
 Route::post('/verify-otp', [OtpLoginController::class, 'verifyOtp'])->name('verify_otp');
 Route::get('/verify-finish', [OtpLoginController::class, 'finish'])->name('otp-msg');
 
+
 Route::get('/empty-otp', function () {
     Auth::logout();
     return redirect()-> route('cus-login')->with('error', 'OTP fields are empty. Try Again'); // Redirect to the login page after logout
 })->name('detect_backward');
+
 
 Route::get('/forget-password', [OtpLoginController::class, 'showRestpasswordForm'])->name('frogeten_psw');
 
@@ -88,6 +91,11 @@ Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add')
 Route::get('/cart', [CartController::class, 'showCart'])->name('cart');
 Route::put('/cart/update/{cartItem}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{cartItem}', [CartController::class, 'remove'])->name('cart.remove');
+
+
+Route::post('/apply-promo', [CartController::class, 'applyPromo'])->name('apply.promo');
+Route::post('/remove-promo', [CartController::class, 'removePromo'])->name('remove.promo');
+
 
 Route::get('/buy-now-checkout/{product_id}', [CartController::class, 'buyNowCheckout'])->name('buyNow.checkout');
 Route::post('/buy_now_place-order', [OrderController::class, 'buynow_placeOrder'])->name('buynow_placeOrder');
@@ -270,6 +278,19 @@ Route::post('/admin/users', [UserController::class, 'store'])->name('system_user
 Route::get('/admin/edit_users/{id}', [UserController::class, 'edit'])->name('edit_users');
 Route::post('/admin/edit_users/{id}', [UserController::class, 'update'])->name('update_users');
 Route::delete('/admin/edit_users/{id}', [UserController::class, 'destroy'])->name('delete_users');
+
+Route::get('/admin/promo_codes', [PromocodeController::class, 'show'])->name('promo_codes');
+Route::post('/admin/promo_codes', [PromocodeController::class, 'store'])->name('promo_codes.store');
+Route::delete('/admin/promo_codes/{id}', [PromocodeController::class, 'destroy'])->name('promo_codes.destroy');
+Route::put('/admin/promo_codes/{id}', [PromocodeController::class, 'update'])->name('promocode.update');
+
+Route::get('/admin/promotions', [PromotionController::class, 'show'])->name('promotions');
+Route::post('/admin/promotions', [PromotionController::class, 'store'])->name('promotions.store');
+Route::get('/admin/promotions/add', [PromotionController::class, 'displayProducts'])->name('add_promotions');
+Route::get('promotions/{promotion}/edit', [PromotionController::class, 'edit'])->name('promotion.edit');
+Route::put('promotions/{promotion}', [PromotionController::class, 'update'])->name('promotion.update');
+Route::delete('/admin/promotions/{id}', [PromotionController::class, 'destroy'])->name('promotion.destroy');
+
 
 
 // admin_reports

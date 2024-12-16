@@ -118,9 +118,23 @@
                                         <div>{{ $item->product->product_name }}</div>
                                     </a>
                                     </td>
-                                    <td>Rs {{ $item->product->normal_price }}</td>
+                                    <td> 
+                                            @if ($item->product->promotions->isNotEmpty())
+                                                    <span class="amount">LKR {{ ($item->product->promotions->first()->discount_price), 2 }}</span> 
+                                            @else
+                                                    <span class="amount">LKR {{ number_format($item->product->normal_price, 2) }}</span>
+                                                
+                                            @endif
+                                    </td>
                                     <td>{{ $item->quantity }}</td>
-                                    <td class="text-end">Rs {{ $item->product->normal_price * $item->quantity }}</td>
+                                    <td class="text-end">
+                                        @if ($item->product->promotions->isNotEmpty())
+                                                <span class="amount">LKR {{ ($item->product->promotions->first()->discount_price * $item->quantity), 2 }}</span> 
+                                        @else
+                                                <span class="amount">LKR {{ number_format($item->product->normal_price * $item->quantity, 2) }}</span>
+                                            
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -135,15 +149,15 @@
                         <h6 class="mb-3">Order Summary</h6>
                         <dl class="dlist">
                             <dt>Subtotal:</dt>
-                            <dd>Rs {{ number_format($order->total_cost - 300, 2) }}</dd>
+                            <dd>LKR {{ number_format($order->total_cost - 350, 2) }}</dd>
                         </dl> 
                         <dl class="dlist">
                             <dt>Delivery Fee:</dt>
-                            <dd>Rs 300.00</dd>
+                            <dd>LKR 350.00</dd>
                         </dl>
                         <dl class="dlist">
                             <dt class="h5">Total:</dt>
-                            <dd><b class="h5">Rs {{ number_format($order->total_cost, 2) }}</b></dd>
+                            <dd><b class="h5">LKR {{ number_format($order->total_cost, 2) }}</b></dd>
                         </dl>
                     </div>
                 </div>

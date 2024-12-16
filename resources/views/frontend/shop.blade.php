@@ -194,13 +194,33 @@
                                 @if($product->created_at->diffInDays(now()) < 7)
                                     <span class="new">New</span>
                                     @endif
+
+
+                                    @if($product->promotions->isNotEmpty()) <!-- Check if there are promotions -->
+                                        <span class="discount-badge">
+                                            - {{ round($product->promotions->first()->discount) }}% 
+                                        </span>
+
+                                        @endif
+
                             </div>
                             <div class="product-info clearfix">
                                 <span class="product-title">{{ $product->product_name }}</span>
                                 <div class="price">
-                                    <ins>
-                                        <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
-                                    </ins>
+
+                                    @if($product->promotions->isNotEmpty())
+                                        <ins>
+                                            <span class="amount" style="color:green;">LKR {{ ($product->promotions->first()->discount_price), 2 }}</span> 
+                                        </ins>
+                                        <del>
+                                            <span class="amount" style="color:red; font-weight:300">LKR {{ number_format($product->normal_price, 2) }}</span> 
+                                        </del>
+                                    @else
+                                        <ins>
+                                            <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                        </ins>
+                                    @endif
+
                                 </div>
                             </div>
                             <div class="add-to-cart text-center">
@@ -322,10 +342,22 @@
                                                 </div>
                                                 @endif
 
-                                                <div class="mt-8 mb-3 product-price d-flex align-items-center">
-                                                    <span class="" style="margin-right: 10px;">
-                                                        <h5 class="mb-0">Rs {{ $product->normal_price }}</h5>
-                                                    </span>
+
+                                                <div class="mb-3 product-price d-flex align-items-center">
+                                                    @if($product->promotions->isNotEmpty())
+                                                        <h5 class="mb-0" style="">
+                                                            <span class="amount" style="color:green;">LKR {{ number_format($product->promotions->first()->discount_price, 2) }}</span> 
+                                                        </h5>
+                                                        <span style="">&nbsp;</span> 
+                                                        <del>
+                                                            <span class="amount" style="color:red; font-weight:300;">LKR {{ number_format($product->normal_price, 2) }}</span> 
+                                                        </del>
+                                                    @else
+                                                        <h5>
+                                                            <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                                        </h5>
+                                                    @endif
+
                                                 </div>
 
                                                 @auth

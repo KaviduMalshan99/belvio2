@@ -157,7 +157,7 @@
                                                 min="1"
                                                 max="{{ $item->product->quantity }}"
                                                 data-id="{{$item->id}}"
-                                                data-price="{{$item->product->normal_price}}">
+                                                data-price="{{$item->product->price}}">
                                             <span class="quantity__plus d-flex justify-content-center align-items-center border border-start-0 border-gray-300" style="width:40px; height:40px; cursor:pointer;">
                                                 +
                                             </span>

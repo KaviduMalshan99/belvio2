@@ -155,6 +155,8 @@
 }
 
 
+
+
 </style>
   
     
@@ -696,43 +698,61 @@
                             </ul> -->
                         
                             <ul class="product style2 sd1">
-                                @foreach ($products as $product)
+                            @foreach ($products as $product)
                                 <li class="product-item">
                                     <div class="product-thumb clearfix">
                                         <a href="{{ route('shop_details', ['product_id' => $product->id]) }}">
                                             <img src="{{ Storage::url(optional($product->images->first())->image_path) }}" alt="image" style="height: 300px; width: auto; object-fit: cover;">
                                         </a>
+                                        
                                         @if($product->created_at->diffInDays(now()) < 7)
                                             <span class="new">New</span>
                                         @endif
+                                        
+                                        @if($product->promotions->isNotEmpty()) <!-- Check if there are promotions -->
+                                        <span class="discount-badge">
+                                            - {{ round($product->promotions->first()->discount) }}% 
+                                        </span>
+
+                                        @endif
                                     </div>
+                                    
                                     <div class="product-info clearfix">
                                         <span class="product-title">{{ $product->product_name }}</span>
                                         <div class="price">
-                                            <ins>
-                                                <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
-                                            </ins>
+                                            @if($product->promotions->isNotEmpty())
+                                                <ins>
+                                                    <span class="amount" style="color:green;">LKR {{ ($product->promotions->first()->discount_price), 2 }}</span> 
+                                                </ins>
+                                                <del>
+                                                    <span class="amount" style="color:red; font-weight:300">LKR {{ number_format($product->normal_price, 2) }}</span> 
+                                                </del>
+                                            @else
+                                                <ins>
+                                                    <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                                </ins>
+                                            @endif
                                         </div>
                                     </div>
-                                    <div class="add-to-cart text-center"  >
+
+                                    <div class="add-to-cart text-center">
                                         <a href="#" 
                                             style="width:100%; color:black;" 
                                             class="add-to-cart text-center" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#cartModal_{{ $product->product_id }}" 
                                             data-product-id="{{ $product->product_id }}">
-                                               <span  style="color:black;"> Add To Cart <i class="ph ph-shopping-cart" ></i> </span>
-                                            </a>
-                                            
+                                            <span style="color:black;"> Add To Cart <i class="ph ph-shopping-cart"></i> </span>
+                                        </a>
                                     </div>
+
                                     <a href="javascript:void(0);" 
                                         class="heart-icon like" 
                                         id="wishlist-icon-{{ $product->product_id }}" 
                                         data-product-id="{{ $product->product_id }}" 
                                         onclick="toggleWishlist(this, '{{ $product->product_id }}')">
-                                            <i class="fa fa-heart-o"></i>
-                                        </a>
-
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
                                 </li>
                                     <!-- Cart Modal -->
                                     <div class="modal fade" id="cartModal_{{ $product->product_id }}"  tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
@@ -833,10 +853,20 @@
                                                             </div>
                                                             @endif
 
-                                                            <div class="mt-8 mb-3 product-price d-flex align-items-center">
-                                                                <span class="" style="margin-right: 10px;">                                                   
-                                                                <h5 class="mb-0">Rs {{ $product->normal_price }}</h5>
-                                                                </span>
+                                                            <div class="mb-3 product-price d-flex align-items-center">
+                                                                @if($product->promotions->isNotEmpty())
+                                                                    <h5 class="mb-0" style="">
+                                                                        <span class="amount" style="color:green;">LKR {{ number_format($product->promotions->first()->discount_price, 2) }}</span> 
+                                                                    </h5>
+                                                                    <span style="">&nbsp;</span> 
+                                                                    <del>
+                                                                        <span class="amount" style="color:red; font-weight:300;">LKR {{ number_format($product->normal_price, 2) }}</span> 
+                                                                    </del>
+                                                                @else
+                                                                    <h5>
+                                                                        <span class="amount" style="color:green;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                                                    </h5>
+                                                                @endif
                                                             </div>
 
                                                             @auth

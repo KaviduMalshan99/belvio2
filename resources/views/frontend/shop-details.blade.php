@@ -209,9 +209,23 @@ a.disabled {
                             </div>
                             <p class="limited-description">{{ $product->product_description }}</p>
                             <p>{{ $product->description }}</p> 
-                            <div class="price margin-top-24">
-                               <h2> <span class="amount" style="color:white">Rs {{ $product->normal_price }}</span></h2>
+                           
+                            <div class="price margin-top-24 d-flex align-items-center">
+                                @if($product->promotions->isNotEmpty())
+                                    <h2 class="mb-0 me-3">
+                                        <span class="amount" style="color:white;">LKR {{ number_format($product->promotions->first()->discount_price, 2) }}</span>
+                                    </h2>
+                                    <span style="">&nbsp;</span> 
+                                    <del>
+                                        <span class="amount" style="color:red; font-weight:300;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                    </del>
+                                @else
+                                    <h2>
+                                        <span class="amount" style="color:white;">LKR {{ number_format($product->normal_price, 2) }}</span>
+                                    </h2>
+                                @endif
                             </div>
+
                             <div class="">
                                 <p class="mb-10 text-black">
                                     Availability:
