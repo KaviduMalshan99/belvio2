@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\NotyfyService;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
@@ -26,6 +28,7 @@ class OtpLoginController extends Controller
 
     public function sendOtp(Request $request)
     {
+        // dd('jhbhbh');
         $phoneNumber = User::where('email', $request->email)->value('phone');
 
         // return response()->json(['message' => $phoneNumber]);
@@ -75,9 +78,9 @@ class OtpLoginController extends Controller
         ]);
         $otp = $request->n_3 . $request->n_2 . $request->n_3 . $request->n_4 . $request->n_5 . $request->n_6;
         // dd(Session()->all());
-        $enteredOtp = $otp;        
+        $enteredOtp = $otp;
         $storedOtp = Session::get('otp');  // Retrieve OTP from session
-         // Retrieve OTP from session
+        // Retrieve OTP from session
 
         // return response()->json(['message' => $storedOtp == $enteredOtp]);
         // Log::info($storedOtp, $storedPhoneNumber);
@@ -87,7 +90,8 @@ class OtpLoginController extends Controller
             return redirect()->route('otp-msg');
             // return response()->json(['message' => 'OTP verified successfully']);
         } else {
-            return redirect()->route('cus-login');
+            FacadesAuth::logout();
+            return redirect()->route('cus-login')->with('error', 'Incorrect OTP. Try Again!');
             // return response()->json(['message' => 'Invalid OTP'], 400);
         }
     }
